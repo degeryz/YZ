@@ -21,16 +21,16 @@
     --logo-shadow: rgba(96, 255, 127, 0.3);
 }
 
-/* YENİ: Değer Max Teması (#60FF7F) */
+/* Değer Max Teması - Fosfor */
 body.theme-neon {
     --bg: #60FF7F;
-    --glass-bg: rgba(0, 0, 0, 0.08);
-    --glass-border: rgba(0, 0, 0, 0.15);
+    --glass-bg: rgba(180, 255, 200, 0.35);
+    --glass-border: rgba(200, 255, 215, 0.6);
     --text: #000000;
-    --text-mute: rgba(0, 0, 0, 0.6);
+    --text-mute: rgba(0, 0, 0, 0.45);
     --accent: #000000;
-    --msg-user: #000000;
-    --logo-shadow: rgba(0, 0, 0, 0.1);
+    --msg-user: rgba(0, 0, 0, 0.85);
+    --logo-shadow: rgba(0, 0, 0, 0.15);
 }
 
 body.theme-grey {
@@ -45,7 +45,12 @@ body.theme-grey {
 body.theme-soft-dark {
     --bg: #000000;
     --glass-bg: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --text: #e8e8e8;
+    --text-mute: rgba(255, 255, 255, 0.3);
     --accent: rgb(96,255,127);
+    --msg-user: #111111;
+    --logo-shadow: rgba(96, 255, 127, 0.2);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -168,9 +173,13 @@ body {
     animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
 .msg-bot { align-self: flex-start; background: var(--glass-bg); border: 1px solid var(--glass-border); border-bottom-left-radius: 6px; }
-.msg-user { align-self: flex-end; background: var(--msg-user); border-bottom-right-radius: 6px; color: #fff; }
+.msg-user { align-self: flex-end; background: var(--msg-user); border-bottom-right-radius: 6px; color: var(--text); }
+body.theme-neon .msg-user { color: #ffffff; }
 
 .sources { margin-top: 20px; font-size: 0.85rem; color: var(--accent); padding-top: 15px; border-top: 1px solid var(--glass-border); font-weight: 700; }
+
+.hist-item { padding: 10px 14px; border-radius: 10px; font-size: 0.8rem; font-weight: 600; color: var(--text); background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; margin-bottom: 6px; transition: 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hist-item:hover { border-color: var(--accent); color: var(--accent); }
 
 /* Yüzen Input Pill */
 .input-float-wrap { padding: 40px 20px; width: 100%; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
@@ -407,7 +416,10 @@ function saveToHistory(q) {
 
 function renderHistory() {
     let hist = JSON.parse(localStorage.getItem('yz_history_v3')) || [];
-    historyBox.innerHTML = hist.map(i => `<div class="hist-item" onclick="useHist('${i}')">${i.substring(0, 28)}...</div>`).join('');
+    historyBox.innerHTML = hist.map((i, idx) => `<div class="hist-item" data-idx="${idx}">${i.substring(0, 28)}...</div>`).join('');
+    historyBox.querySelectorAll('.hist-item').forEach((el, idx) => {
+        el.onclick = () => useHist(hist[idx]);
+    });
 }
 
 function useHist(i) {
