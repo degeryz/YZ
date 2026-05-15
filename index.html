@@ -1,36 +1,242 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Değer YZ</title>
+    <title>DeÄer YZ</title>
     <!-- Sekme Logosu -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3272 3272'><path fill='rgb(254,254,254)' d='M 773.691 986.084 L 772.791 984.088 C 779.634 972.417 796.011 956.836 806.008 947.569 C 861.783 895.829 929.313 858.443 1002.77 838.638 C 1074.68 819.933 1144.35 823.815 1218.03 823.825 L 1402.14 823.874 L 1977.83 823.872 L 2347.07 823.847 C 2401.86 823.84 2497.65 821.095 2549.07 826.395 C 2613.82 833.172 2676.36 853.779 2732.46 886.821 C 2837.68 948.965 2915.22 1049.25 2946.05 1167.94 C 2966.11 1245.19 2960.88 1348.31 2960.89 1429.58 L 2960.89 1708.09 L 2960.87 2095.63 C 2960.88 2159.53 2963.02 2239.56 2960.37 2302.31 L 2848.84 2373.67 C 2834.45 2382.94 2802.26 2402.71 2790.83 2412.89 L 2790.82 1688.81 L 2790.88 1494 C 2790.89 1479.77 2791.72 1416.72 2789.61 1405.33 C 2788.17 1423.18 2789.04 1453.79 2789.04 1472.38 L 2789.06 1593.27 C 2789.06 1662.54 2790.7 2409.4 2787.69 2412.41 C 2784.29 2415.8 2780.08 2417.89 2775.31 2418.36 C 2756.13 2420.24 2733.97 2416.92 2714.42 2416.97 C 2693.13 2417.03 2671.86 2418.24 2650.58 2418.13 C 2611.69 2417.93 2572.72 2416.04 2533.86 2414.67 C 2471.44 2412.47 2409.37 2413.63 2346.99 2412.53 C 2302.37 2411.74 2257.83 2408.62 2213.2 2407.85 L 1060 2388.66 L 772.846 2382.69 C 710.05 2381.05 648.559 2377.08 584.839 2379.26 C 569.298 2379.8 503.583 2379.54 484.758 2375.58 C 483.039 2375.22 482.059 2366.3 482.11 2363.08 C 482.914 2312.33 482.634 2261.35 482.633 2210.59 L 482.604 1856.84 L 482.533 1574.08 C 482.506 1493.65 477.403 1392.44 493.384 1315.39 C 517.005 1201.5 595.868 1089.25 693.593 1027.44 C 704.456 1020.57 715.501 1012.73 727.175 1007.29 C 737.042 1001.35 767.159 991.856 773.691 986.084 z'/></svg>">
-    <link rel="stylesheet" href="style.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* VarsayÄ±lan Cyber Tema */
+    --accent: rgb(96,255,127);
+    --bg: #05070a;
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text: #ffffff;
+    --text-mute: rgba(255, 255, 255, 0.4);
+    --msg-user: #161a20;
+    --logo-shadow: rgba(96, 255, 127, 0.3);
+}
+
+/* DeÄer Max TemasÄ± - Fosfor */
+body.theme-neon {
+    --bg: #60FF7F;
+    --glass-bg: rgba(180, 255, 200, 0.35);
+    --glass-border: rgba(200, 255, 215, 0.6);
+    --text: #000000;
+    --text-mute: rgba(0, 0, 0, 0.45);
+    --accent: #000000;
+    --msg-user: rgba(0, 0, 0, 0.85);
+    --logo-shadow: rgba(0, 0, 0, 0.15);
+}
+
+body.theme-grey {
+    --bg: #f0f3f7;
+    --glass-bg: rgba(0, 0, 0, 0.04);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --text: #1a1e23;
+    --text-mute: #667085;
+    --accent: #1e293b;
+}
+
+body.theme-soft-dark {
+    --bg: #000000;
+    --glass-bg: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --text: #e8e8e8;
+    --text-mute: rgba(255, 255, 255, 0.3);
+    --accent: rgb(96,255,127);
+    --msg-user: #111111;
+    --logo-shadow: rgba(96, 255, 127, 0.2);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px) saturate(200%);
+    border: 1px solid var(--glass-border);
+}
+
+/* Yan MenÃ¼ */
+#sidebar {
+    position: fixed; left: -320px; top: 15px; bottom: 15px; width: 300px;
+    border-radius: 24px; z-index: 1000; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 30px; display: flex; flex-direction: column;
+}
+#sidebar.active { left: 15px; box-shadow: 0 40px 100px rgba(0,0,0,0.8); }
+
+#sidebar-blur {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 999; backdrop-filter: blur(8px);
+}
+#sidebar-blur.active { display: block; }
+
+.sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.brand-name { font-weight: 800; font-size: 0.9rem; color: var(--accent); letter-spacing: 1px; }
+#close-menu { background: none; border: none; color: var(--text); font-size: 1.2rem; cursor: pointer; }
+
+.menu-item label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-mute); margin-bottom: 12px; display: block; }
+.theme-btns { display: grid; gap: 8px; margin-bottom: 30px; }
+.t-btn { padding: 14px; border-radius: 14px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.03); color: var(--text); cursor: pointer; font-weight: 700; font-size: 0.8rem; text-align: left; }
+.t-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* GELÄ°ÅMÄ°Å TEMÄ°ZLE BUTONU */
+#clear-history {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(255, 59, 48, 0.1);
+    color: #ff3b30;
+    border: 1px solid rgba(255, 59, 48, 0.2);
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+#clear-history:hover {
+    background: #ff3b30;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 59, 48, 0.3);
+}
+
+/* Main Area */
+.main-screen { flex: 1; display: flex; flex-direction: column; position: relative; width: 100%; }
+
+/* BANNER */
+.banner {
+    margin: 20px; height: 110px; border-radius: 24px; display: flex; align-items: center; 
+    justify-content: space-between; padding: 0 35px; z-index: 10;
+}
+
+.banner-left { display: flex; align-items: center; gap: 30px; }
+.menu-icon { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 7px; }
+.menu-icon span { width: 26px; height: 3px; background: var(--text); border-radius: 10px; }
+
+.logo-group { display: flex; align-items: center; gap: 20px; }
+
+.app-logo { 
+    width: 85px; 
+    height: 85px; 
+    filter: drop-shadow(0 0 15px var(--logo-shadow));
+    transition: 0.4s ease;
+}
+.app-logo:hover { transform: scale(1.05); }
+
+.brand-text { display: flex; flex-direction: column; }
+.brand-top { font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; line-height: 1; }
+.brand-sub { font-size: 0.7rem; font-weight: 800; color: var(--accent); letter-spacing: 2px; margin-top: 4px; }
+
+.system-node { 
+    font-size: 0.75rem; 
+    color: var(--accent); 
+    background: rgba(0,0,0,0.05); 
+    padding: 8px 20px; 
+    border-radius: 100px; 
+    font-weight: 800; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+    border: 1px solid var(--glass-border);
+}
+.pulse { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: blink 1.5s infinite; }
+
+/* Chat Flow */
+#chat-flow { flex: 1; overflow-y: auto; padding: 60px 20px; display: flex; flex-direction: column; gap: 30px; }
+.intro-box { max-width: 700px; margin: 80px auto; text-align: center; }
+.intro-box h2 { font-size: 4.5rem; margin-bottom: 15px; font-weight: 900; letter-spacing: -3px; }
+.intro-box p { color: var(--text-mute); font-size: 1.3rem; line-height: 1.6; }
+
+.message { 
+    max-width: 850px; 
+    width: fit-content; 
+    padding: 24px 32px; 
+    border-radius: 32px; 
+    line-height: 1.6; 
+    font-size: 1.15rem; 
+    animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+.msg-bot { align-self: flex-start; background: var(--glass-bg); border: 1px solid var(--glass-border); border-bottom-left-radius: 6px; }
+.msg-user { align-self: flex-end; background: var(--msg-user); border-bottom-right-radius: 6px; color: var(--text); }
+body.theme-neon .msg-user { color: #ffffff; }
+
+.sources { margin-top: 20px; font-size: 0.85rem; color: var(--accent); padding-top: 15px; border-top: 1px solid var(--glass-border); font-weight: 700; }
+
+.hist-item { padding: 10px 14px; border-radius: 10px; font-size: 0.8rem; font-weight: 600; color: var(--text); background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; margin-bottom: 6px; transition: 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hist-item:hover { border-color: var(--accent); color: var(--accent); }
+
+/* YÃ¼zen Input Pill */
+.input-float-wrap { padding: 40px 20px; width: 100%; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.input-pill { width: 100%; display: flex; align-items: center; padding: 12px 15px; border-radius: 30px; transition: 0.4s; }
+.input-pill:focus-within { transform: translateY(-3px); border-color: var(--accent); }
+
+#query-input { flex: 1; background: none; border: none; outline: none; color: var(--text); padding: 15px 20px; font-size: 1.2rem; font-weight: 500; }
+#send-trigger { 
+    background: var(--accent); 
+    border: none; 
+    width: 58px; 
+    height: 58px; 
+    border-radius: 22px; 
+    color: var(--bg); 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: 0.3s;
+}
+#send-trigger:hover { transform: scale(1.1) rotate(-8deg); }
+#send-trigger svg { width: 26px; height: 26px; }
+
+.helper-text { font-size: 0.85rem; color: var(--text-mute); margin-top: 25px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+
+@keyframes pop { from { opacity: 0; transform: scale(0.9) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes blink { 0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--accent); } 50% { opacity: 0.3; } }
+
+/* KaydÄ±rma ÃubuÄu */
+#chat-flow::-webkit-scrollbar { width: 6px; }
+#chat-flow::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+    </style>
 </head>
 <body class="theme-standard">
 
-    <!-- Yan Menü -->
+    <!-- Yan MenÃ¼ -->
     <div id="sidebar-blur"></div>
     <nav id="sidebar" class="glass">
         <div class="sidebar-header">
-            <span class="brand-name">KONTROL PANELİ</span>
-            <button id="close-menu">✕</button>
+            <span class="brand-name">KONTROL PANELÄ°</span>
+            <button id="close-menu">â</button>
         </div>
         <div class="sidebar-content">
             <div class="menu-item">
-                <label>Görünüm Teması</label>
+                <label>GÃ¶rÃ¼nÃ¼m TemasÄ±</label>
                 <div class="theme-btns">
-                    <button onclick="setTheme('neon')" class="t-btn btn-neon">Değer Max (Fosfor)</button>
+                    <button onclick="setTheme('neon')" class="t-btn btn-neon">DeÄer Max (Fosfor)</button>
                     <button onclick="setTheme('standard')" class="t-btn btn-std">Cyber (Default)</button>
                     <button onclick="setTheme('grey')" class="t-btn btn-gry">Platin</button>
                     <button onclick="setTheme('soft-dark')" class="t-btn btn-drk">Obsidyen</button>
                 </div>
             </div>
             <div class="menu-item">
-                <label>Analiz Geçmişi</label>
+                <label>Analiz GeÃ§miÅi</label>
                 <div id="history-box"></div>
-                <button id="clear-history">Geçmişi Temizle</button>
+                <button id="clear-history">GeÃ§miÅi Temizle</button>
             </div>
         </div>
     </nav>
@@ -45,9 +251,9 @@
                 <div class="logo-group">
                     <div class="app-logo">
                         <svg viewBox="0 0 3272 3272">
-                            <!-- Beyaz kısımlar -->
+                            <!-- Beyaz kÄ±sÄ±mlar -->
                             <path fill="rgb(254,254,254)" d="M 773.691 986.084 L 772.791 984.088 C 779.634 972.417 796.011 956.836 806.008 947.569 C 861.783 895.829 929.313 858.443 1002.77 838.638 C 1074.68 819.933 1144.35 823.815 1218.03 823.825 L 1402.14 823.874 L 1977.83 823.872 L 2347.07 823.847 C 2401.86 823.84 2497.65 821.095 2549.07 826.395 C 2613.82 833.172 2676.36 853.779 2732.46 886.821 C 2837.68 948.965 2915.22 1049.25 2946.05 1167.94 C 2966.11 1245.19 2960.88 1348.31 2960.89 1429.58 L 2960.89 1708.09 L 2960.87 2095.63 C 2960.88 2159.53 2963.02 2239.56 2960.37 2302.31 L 2848.84 2373.67 C 2834.45 2382.94 2802.26 2402.71 2790.83 2412.89 L 2790.82 1688.81 L 2790.88 1494 C 2790.89 1479.77 2791.72 1416.72 2789.61 1405.33 C 2788.17 1423.18 2789.04 1453.79 2789.04 1472.38 L 2789.06 1593.27 C 2789.06 1662.54 2790.7 2409.4 2787.69 2412.41 C 2784.29 2415.8 2780.08 2417.89 2775.31 2418.36 C 2756.13 2420.24 2733.97 2416.92 2714.42 2416.97 C 2693.13 2417.03 2671.86 2418.24 2650.58 2418.13 C 2611.69 2417.93 2572.72 2416.04 2533.86 2414.67 C 2471.44 2412.47 2409.37 2413.63 2346.99 2412.53 C 2302.37 2411.74 2257.83 2408.62 2213.2 2407.85 L 1060 2388.66 L 772.846 2382.69 C 710.05 2381.05 648.559 2377.08 584.839 2379.26 C 569.298 2379.8 503.583 2379.54 484.758 2375.58 C 483.039 2375.22 482.059 2366.3 482.11 2363.08 C 482.914 2312.33 482.634 2261.35 482.633 2210.59 L 482.604 1856.84 L 482.533 1574.08 C 482.506 1493.65 477.403 1392.44 493.384 1315.39 C 517.005 1201.5 595.868 1089.25 693.593 1027.44 C 704.456 1020.57 715.501 1012.73 727.175 1007.29 C 737.042 1001.35 767.159 991.856 773.691 986.084 z"/>
-                            <!-- Siyah kısımlar -->
+                            <!-- Siyah kÄ±sÄ±mlar -->
                             <path fill="rgb(0,0,0)" d="M 773.691 986.084 L 772.791 984.088 C 779.634 972.417 796.011 956.836 806.008 947.569 C 861.783 895.829 929.313 858.443 1002.77 838.638 C 1074.68 819.933 1144.35 823.815 1218.03 823.825 L 1402.14 823.874 L 1977.83 823.872 L 2347.07 823.847 C 2401.86 823.84 2497.65 821.095 2549.07 826.395 C 2613.82 833.172 2676.36 853.779 2732.46 886.821 C 2837.68 948.965 2915.22 1049.25 2946.05 1167.94 C 2966.11 1245.19 2960.88 1348.31 2960.89 1429.58 L 2960.89 1708.09 L 2960.87 2095.63 C 2960.88 2159.53 2963.02 2239.56 2960.37 2302.31 L 2848.84 2373.67 C 2834.45 2382.94 2802.26 2402.71 2790.83 2412.89 L 2790.82 1688.81 L 2790.88 1494 C 2790.89 1479.77 2791.72 1416.72 2789.61 1405.33 C 2789.52 1216.98 2657.22 1039.13 2480.7 979.242 C 2401.8 952.475 2354.26 954.321 2273.24 954.399 L 2118.17 954.432 L 1623.45 954.422 L 1149.04 954.415 L 1001.54 954.388 C 926.222 954.293 843.723 952.975 773.691 986.084 z"/>
                             <path fill="rgb(0,0,0)" d="M 723.445 1494.35 C 751.144 1492.83 782.652 1493.97 810.82 1493.62 C 833.982 1494.31 858.583 1492.15 881.582 1495.02 C 1086.02 1520.52 1114.55 1830.69 969.608 1940.84 C 948.324 1956.16 924.028 1966.79 898.329 1972.02 C 862.263 1979.42 757.041 1974.95 715.756 1974.59 C 704.667 1973.36 692.701 1969.33 683.674 1963.2 C 655.637 1944.15 662.455 1896.33 662.431 1865.67 L 662.39 1753.84 L 662.428 1620.88 C 662.442 1596.04 661.951 1571.59 663.451 1546.77 C 665.787 1508.08 689.403 1498.81 723.445 1494.35 z"/>
                             <path fill="rgb(254,254,254)" d="M 803.303 1590.93 C 834.771 1590.62 862.873 1589.94 889.064 1610.59 C 913.544 1629.9 925.992 1666.25 928.756 1696.46 C 933.48 1748.1 931.469 1802.64 898.215 1844.67 C 896.554 1846.45 894.851 1848.19 893.107 1849.88 C 866.185 1875.82 838.271 1877.65 803.427 1877.13 C 801.373 1783.96 802.875 1684.52 803.303 1590.93 z"/>
@@ -59,15 +265,15 @@
                         </svg>
                     </div>
                     <div class="brand-text">
-                        <span class="brand-top">DEĞER</span>
-                        <span class="brand-sub">YAPAY ZEKA ANALİZ</span>
+                        <span class="brand-top">DEÄER</span>
+                        <span class="brand-sub">YAPAY ZEKA ANALÄ°Z</span>
                     </div>
                 </div>
             </div>
             <div class="banner-right">
                 <div class="system-node">
                     <span class="pulse"></span>
-                    SİSTEM ÇEVRİMİÇİ
+                    SÄ°STEM ÃEVRÄ°MÄ°ÃÄ°
                 </div>
             </div>
         </header>
@@ -75,7 +281,7 @@
         <main id="chat-flow">
             <div class="intro-box">
                 <h2>Merhaba</h2>
-                <p>Değer YZ</p>
+                <p>DeÄer YZ</p>
             </div>
         </main>
 
@@ -90,6 +296,151 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+const API_KEY = "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";
+const API_URL = "https://api.groq.com/openai/v1/chat/completions";
+
+const chatFlow = document.getElementById('chat-flow');
+const queryInput = document.getElementById('query-input');
+const sendTrigger = document.getElementById('send-trigger');
+const sidebar = document.getElementById('sidebar');
+const sidebarBlur = document.getElementById('sidebar-blur');
+const historyBox = document.getElementById('history-box');
+
+// UI Kontrolleri
+document.getElementById('menu-toggle').onclick = () => { sidebar.classList.add('active'); sidebarBlur.classList.add('active'); };
+document.getElementById('close-menu').onclick = () => { sidebar.classList.remove('active'); sidebarBlur.classList.remove('active'); };
+sidebarBlur.onclick = () => { sidebar.classList.remove('active'); sidebarBlur.classList.remove('active'); };
+
+function setTheme(t) {
+    document.body.className = 'theme-' + t;
+    localStorage.setItem('yz_theme_v3', t);
+}
+
+function appendMessage(text, isBot = true, sources = []) {
+    const intro = document.querySelector('.intro-box');
+    if (intro) intro.remove();
+
+    const d = document.createElement('div');
+    d.className = `message ${isBot ? 'msg-bot' : 'msg-user'}`;
+    let html = `<div>${text}</div>`;
+    if (sources.length > 0) {
+        html += `<div class="sources">KAYNAK DOSYALAR: ${sources.join(', ')}</div>`;
+    }
+    d.innerHTML = html;
+    chatFlow.appendChild(d);
+    chatFlow.scrollTop = chatFlow.scrollHeight;
+}
+
+// GROQ API Entegrasyonu (Llama 3.1)
+async function callAnalyst(question, dataSet) {
+    const systemInstruction = `
+    Senin adÄ±n DeÄer YZ. YapÄ±mcÄ±larÄ±n: Ozan Nigar ve Hasan Eymen Kartal.
+    KESÄ°N KURALLAR:
+    1. Sadece sana verilen "METÄ°NLER" Ã¼zerinden cevap ver. Kendi bilgilerini asla kullanma.
+    2. Metinlerde cevap yoksa tam olarak Åunu sÃ¶yle: "Bu bilgiye kÃ¼tÃ¼phanemdeki deÄerlendirmelerden ulaÅamadÄ±m, kitap veya film hakkÄ±nda baÅka bir Åey sorabilirsin."
+    3. Sadece kitap/film analizi yap. Metinlerde ne geÃ§iyorsa onu aktar.
+    METÄ°NLER:
+    ${dataSet.map(d => `[Yazar: ${d.author}]: ${d.content}`).join("\n\n")}
+    `;
+
+    try {
+        const r = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${API_KEY}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                model: "llama-3.1-8b-instant",
+                messages: [{ role: "system", content: systemInstruction }, { role: "user", content: question }],
+                temperature: 0.0
+            })
+        });
+        const d = await r.json();
+        return d.choices[0].message.content;
+    } catch (e) { return "HATA: Analiz motoru baÄlantÄ±sÄ± koptu."; }
+}
+
+async function processSearch(q) {
+    const lowQ = q.toLocaleLowerCase('tr-TR');
+    
+    if (lowQ.includes("kimsin") || lowQ.includes("adÄ±n ne")) return appendMessage("Ben <b>DeÄer YZ</b>. Ozan Nigar ve Hasan Eymen Kartal'Ä±n Ã¶zel kÃ¼tÃ¼phane analiz asistanÄ±yÄ±m.");
+    if (lowQ.includes("kim yaptÄ±") || lowQ.includes("sahibin")) return appendMessage("Ben <b>Ozan Nigar</b> ve <b>Hasan Eymen Kartal</b> tarafÄ±ndan kodlandÄ±m.");
+
+    try {
+        const res = await fetch('index.json');
+        const data = await res.json();
+        
+        const book = data.kÃ¼tÃ¼phane.find(k => lowQ.includes(k.ad.toLocaleLowerCase('tr-TR')));
+        if (!book) return appendMessage("Bu eser kÃ¼tÃ¼phanemde kayÄ±tlÄ± deÄil veya henÃ¼z dosyasÄ± eklenmemiÅ.");
+
+        let sortedList = [
+            ...book.yazarlar.filter(a => a.toLocaleLowerCase('tr-TR').includes("(Ã¶)")),
+            ...book.yazarlar.filter(a => !a.toLocaleLowerCase('tr-TR').includes("(Ã¶)"))
+        ];
+
+        let docs = [];
+        let authNames = [];
+
+        for (const auth of sortedList) {
+            try {
+                const folder = book.ad.toLocaleLowerCase('tr-TR');
+                const file = auth.toLocaleLowerCase('tr-TR');
+                const url = `deÄerlendirmeler/${folder}/${file}.txt`;
+                
+                const fRes = await fetch(encodeURI(url));
+                if (fRes.ok) {
+                    docs.push({ author: auth, content: await fRes.text() });
+                    authNames.push(auth);
+                }
+            } catch (e) {}
+        }
+
+        if (authNames.length > 0) {
+            appendMessage("<i>Analiz motoru dosyalarÄ± tarÄ±yor...</i>");
+            const result = await callAnalyst(q, docs);
+            appendMessage(result, true, authNames);
+            saveToHistory(q);
+        } else {
+            appendMessage("ÃzgÃ¼nÃ¼m okunacak bir deÄerlendirme bulamadÄ±m.");
+        }
+    } catch (e) { appendMessage("KRÄ°TÄ°K HATA: index.json dosyasÄ±na eriÅilemiyor."); }
+}
+
+function saveToHistory(q) {
+    let hist = JSON.parse(localStorage.getItem('yz_history_v3')) || [];
+    if (!hist.includes(q)) {
+        hist.unshift(q);
+        if (hist.length > 12) hist.pop();
+        localStorage.setItem('yz_history_v3', JSON.stringify(hist));
+        renderHistory();
+    }
+}
+
+function renderHistory() {
+    let hist = JSON.parse(localStorage.getItem('yz_history_v3')) || [];
+    historyBox.innerHTML = hist.map((i, idx) => `<div class="hist-item" data-idx="${idx}">${i.substring(0, 28)}...</div>`).join('');
+    historyBox.querySelectorAll('.hist-item').forEach((el, idx) => {
+        el.onclick = () => useHist(hist[idx]);
+    });
+}
+
+function useHist(i) {
+    queryInput.value = i;
+    sidebar.classList.remove('active');
+    sidebarBlur.classList.remove('active');
+}
+
+document.getElementById('clear-history').onclick = () => {
+    localStorage.removeItem('yz_history_v3');
+    renderHistory();
+};
+
+sendTrigger.onclick = () => {
+    const val = queryInput.value.trim();
+    if (val) { appendMessage(val, false); processSearch(val); queryInput.value = ''; }
+};
+
+queryInput.onkeypress = (e) => { if (e.key === 'Enter') sendTrigger.click(); };
+window.onload = () => { setTheme(localStorage.getItem('yz_theme_v3') || 'standard'); renderHistory(); };
+    </script>
 </body>
 </html>
